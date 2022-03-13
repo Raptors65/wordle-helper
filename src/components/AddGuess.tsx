@@ -4,7 +4,8 @@ import Feedback from '../types/Feedback';
 import Guess from '../types/Guess';
 import FeedbackLetter from './FeedbackLetter';
 
-export default function AddGuess(props: {onAddGuess: (guess: Guess) => void}) {
+export default function AddGuess(props: {guessedWords: string[], onAddGuess: (guess: Guess) => void}) {
+  const [error, setError] = useState('');
   const [feedback, setFeedback] = useState<Feedback[]>(new Array(5).fill(Feedback.Wrong));
   const [word, setWord] = useState('');
 
@@ -13,10 +14,11 @@ export default function AddGuess(props: {onAddGuess: (guess: Guess) => void}) {
       <TextInput
         autoCapitalize='none'
         autoCorrect={false}
-        defaultValue={word}
         onChangeText={text => setWord(text.toLowerCase())}
         placeholder="Guess"
+        value={word}
         style={styles.guessInput} />
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <FlatList
         data={feedback}
         horizontal
@@ -33,10 +35,24 @@ export default function AddGuess(props: {onAddGuess: (guess: Guess) => void}) {
             ])}
           />
         }
+        scrollEnabled={false}
         contentContainerStyle={styles.feedbackListContainer}
         style={styles.feedbackList}
       />
-      <TouchableOpacity onPress={() => props.onAddGuess({ feedback, word })} style={styles.addButton}>
+      <TouchableOpacity
+        onPress={() => {
+          if (word.length !== 5) {
+            setError('Guess is not 5 characters long.');
+          } else if (props.guessedWords.includes(word)) {
+            setError('Guess has already been added.');
+          } else {
+            setError('');
+            setWord('');
+            props.onAddGuess({ feedback, word });
+          }
+        }}
+        style={styles.addButton}
+      >
         <Text>+ ADD</Text>
       </TouchableOpacity>
 
@@ -46,6 +62,7 @@ export default function AddGuess(props: {onAddGuess: (guess: Guess) => void}) {
 
 const black = '#000';
 const gray = '#707070';
+const red = '#f00';
 const styles = StyleSheet.create({
   addButton: {
     alignItems: 'center',
@@ -58,8 +75,12 @@ const styles = StyleSheet.create({
   container: {
     borderColor: black,
     borderWidth: 1,
-    height: 200,
     paddingTop: 20
+  },
+  errorText: {
+    color: red,
+    marginTop: 20,
+    textAlign: 'center'
   },
   feedbackList: {
     marginTop: 20,

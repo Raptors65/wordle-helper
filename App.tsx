@@ -7,11 +7,11 @@ import AddedGuess from './src/components/AddedGuess';
 import AnswersList from './src/components/AnswersList';
 
 export default function App() {
-  const [guesses, setGuesses]  = useState<Guess[]>([]);
-  
+  const [guesses, setGuesses] = useState<Guess[]>([]);
+
   return (
     <View style={styles.container}>
-      <AddGuess onAddGuess={guess => setGuesses([...guesses, guess])} />
+      <AddGuess guessedWords={guesses.map(guess => guess.word)} onAddGuess={guess => setGuesses([...guesses, guess])} />
       <FlatList
         data={guesses}
         keyExtractor={item => item.word}
