@@ -11,6 +11,7 @@ export default function AddGuess(props: {guessedWords: string[], onAddGuess: (gu
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>Add Guess</Text>
       <TextInput
         autoCapitalize='none'
         autoCorrect={false}
@@ -28,11 +29,12 @@ export default function AddGuess(props: {guessedWords: string[], onAddGuess: (gu
             key={index}
             feedback={item}
             index={index}
-            onFeedbackChange={(newFeedback) => setFeedback([
+            onFeedbackChange={newFeedback => setFeedback([
               ...feedback.slice(0, index),
               newFeedback,
               ...feedback.slice(index + 1)
             ])}
+            sideLength={60}
           />
         }
         scrollEnabled={false}
@@ -53,7 +55,7 @@ export default function AddGuess(props: {guessedWords: string[], onAddGuess: (gu
         }}
         style={styles.addButton}
       >
-        <Text>+ ADD</Text>
+        <Text style={styles.addButtonText}>+ ADD</Text>
       </TouchableOpacity>
 
     </View>
@@ -71,6 +73,10 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     marginTop: 20
+  },
+  addButtonText: {
+    fontSize: 18,
+    fontWeight: '500'
   },
   container: {
     borderColor: black,
@@ -96,7 +102,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     height: 30,
+    marginTop: 10,
     paddingLeft: 10,
     width: 150
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: '700',
+    textAlign: 'center'
   }
 });

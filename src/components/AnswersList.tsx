@@ -47,6 +47,9 @@ export default function AnswersList(props: { guesses: Guess[] }) {
   });
 
   return (
-    <FlatList data={possibleAnswers} keyExtractor={answer => answer} renderItem={({ item }) => <Text>{item}</Text>} />
+    <FlatList
+      data={possibleAnswers}
+      keyExtractor={answer => answer} renderItem={({ item }) => <Text>{item}</Text>}
+    />
   );
 }

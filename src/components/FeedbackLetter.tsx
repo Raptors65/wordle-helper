@@ -1,8 +1,13 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import Feedback from '../types/Feedback';
 
-export default function FeedbackLetter(props: { feedback: Feedback, index: number, onFeedbackChange: (feedback: Feedback) => void }) {
+export default function FeedbackLetter(props: {
+  feedback: Feedback,
+  index: number,
+  onFeedbackChange: (feedback: Feedback) => void,
+  sideLength: number
+}) {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -18,14 +23,7 @@ export default function FeedbackLetter(props: { feedback: Feedback, index: numbe
           break;
         }
       }}
-      style={[{ backgroundColor: props.feedback }, styles.container ]}
+      style={{ backgroundColor: props.feedback, height: props.sideLength, width: props.sideLength }}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: 60,
-    width: 60
-  }
-});
