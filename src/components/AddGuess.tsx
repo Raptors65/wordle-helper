@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Feedback from '../enums/Feedback';
+import Feedback from '../types/Feedback';
+import Guess from '../types/Guess';
 import FeedbackLetter from './FeedbackLetter';
 
-export default function AddGuess() {
+export default function AddGuess(props: {onAddGuess: (guess: Guess) => void}) {
   const [feedback, setFeedback] = useState(new Array(5).fill(Feedback.Wrong));
-  const [guess, setGuess] = useState('');
+  const [word, setWord] = useState('');
 
   return (
     <View style={styles.container}>
-      <TextInput defaultValue={guess} onChangeText={text => setGuess(text)} placeholder="Guess" style={styles.guessInput} />
+      <TextInput
+        autoCapitalize='none'
+        autoCorrect={false}
+        spellCheck={false}
+        defaultValue={word}
+        onChangeText={text => setWord(text.toLowerCase())}
+        placeholder="Guess"
+        style={styles.guessInput} />
       <FlatList
         data={feedback}
         horizontal
@@ -29,7 +37,7 @@ export default function AddGuess() {
         contentContainerStyle={styles.feedbackListContainer}
         style={styles.feedbackList}
       />
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity onPress={() => props.onAddGuess({ feedback, word })} style={styles.addButton}>
         <Text>+ ADD</Text>
       </TouchableOpacity>
 

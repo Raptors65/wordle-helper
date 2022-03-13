@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import Feedback from '../enums/Feedback';
+import Feedback from '../types/Feedback';
 
 export default function FeedbackLetter(props: { feedback: Feedback, index: number, onFeedbackChange: (feedback: Feedback) => void }) {
   return (
