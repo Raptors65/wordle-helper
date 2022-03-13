@@ -13,7 +13,6 @@ export default function AddGuess(props: {onAddGuess: (guess: Guess) => void}) {
       <TextInput
         autoCapitalize='none'
         autoCorrect={false}
-        spellCheck={false}
         defaultValue={word}
         onChangeText={text => setWord(text.toLowerCase())}
         placeholder="Guess"
