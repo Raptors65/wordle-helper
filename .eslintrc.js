@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   'rules': {
+    'comma-dangle': ['error', 'never'],
     'indent': [
       'error',
       2
@@ -32,6 +33,7 @@ module.exports = {
       'error',
       'unix'
     ],
+    'object-curly-spacing': ['error', 'always'],
     'quotes': [
       'error',
       'single'
