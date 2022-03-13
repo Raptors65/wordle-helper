@@ -5,7 +5,7 @@ import Guess from '../types/Guess';
 import FeedbackLetter from './FeedbackLetter';
 
 export default function AddGuess(props: {onAddGuess: (guess: Guess) => void}) {
-  const [feedback, setFeedback] = useState(new Array(5).fill(Feedback.Wrong));
+  const [feedback, setFeedback] = useState<Feedback[]>(new Array(5).fill(Feedback.Wrong));
   const [word, setWord] = useState('');
 
   return (

@@ -4,10 +4,11 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import AddGuess from './src/components/AddGuess';
 import Guess from './src/types/Guess';
 import AddedGuess from './src/components/AddedGuess';
+import AnswersList from './src/components/AnswersList';
 
 export default function App() {
   const [guesses, setGuesses]  = useState<Guess[]>([]);
-
+  
   return (
     <View style={styles.container}>
       <AddGuess onAddGuess={guess => setGuesses([...guesses, guess])} />
@@ -16,6 +17,7 @@ export default function App() {
         keyExtractor={item => item.word}
         renderItem={({ item }) => <AddedGuess guess={item} />}
       />
+      <AnswersList guesses={guesses} />
       <StatusBar />
     </View>
   );
